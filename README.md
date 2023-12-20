@@ -3,6 +3,18 @@
 
 This is a small project I wrote to experiment with HTMX; It uses a minimal custom framework built on top of ExpressJS. For more information see core/createView.ts
 
+## What is it?
+
+Its a simple microblogging site that lets you post messages and like/reply to other's posts.
+
+## Primary tools/libraries used
+
+- TypeScript
+- [Prisma](https://prisma.io)
+- [HTMX](https://htmx.org)
+- [ExpressJS](https://expressjs.com)
+- [Nunjucks](https://mozilla.github.io/nunjucks/)
+
 ## Project setup
 To get the project ready to run locally you'll need to ensure you have a Postgres database server available; I've included a docker-compose.yml file that you can use to quickly setup one locally.
 
