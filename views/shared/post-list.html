@@ -1,0 +1,35 @@
+
+<div class="card" hx-boost="true">
+	{% for post in posts %}
+	<div class="card-body {% if not loop.last %}border-bottom{% endif %}">
+		<small class="fw-light text-secondary">
+			{{ post.author.displayName }}
+			<a href="/{{ post.author.username }}" class="text-secondary">@{{ post.author.username }}</a>
+		</small>
+		
+		<p class="fs-5 fw-light mb-0">{{ post.content }}</p>
+		
+		<small class="fw-light text-secondary">
+			<a href="/{{ post.author.username }}/post/{{ post.id }}" class="text-secondary">{{ post.postedOn | dateFormat("MMM D, YYYY [at] h:mma") }}</a>
+		</small>
+
+		<div class="pt-2">
+			<button 
+				type="button" 
+				class="btn btn-sm {% if post.doesLike %}btn-outline-primary{% else %}btn-outline-secondary{% endif %}" 
+				hx-post="/api/posts/like/{{ post.id }}" 
+				hx-on="htmx:onJson: this.setAttribute('class', event.json.didLike ? 'btn btn-sm btn-outline-primary' : 'btn btn-sm btn-outline-secondary')"
+				>
+
+				<i class="bi bi-star-fill"></i> 
+				Likes <span hx-json="numLikes">{{ post.numLikes }}</span>
+			</button>
+
+			<a href="/{{ post.author.username }}/post/{{ post.id }}" class="btn btn-sm btn-dark text-secondary">
+				<i class="bi bi-reply-fill"></i>
+				{{ post.numReplies }} replies
+			</a>
+		</div>
+	</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,34 @@
+<div class="card">
+	<div class="card-body border-bottom">
+		<p class="fs-5 fw-light mb-0">{{ post.content }}</p>
+		
+		<small class="fw-light text-secondary">
+			<a href="/{{ post.author.username }}/post/{{ post.id }}" class="text-secondary">{{ post.postedOn | dateFormat("MMM D, YYYY [at] h:mma") }}</a>
+		</small>
+
+		<div class="pt-2">
+			<button 
+				type="button" 
+				class="btn btn-sm {% if post.doesLike %}btn-outline-primary{% else %}btn-outline-secondary{% endif %}" 
+				hx-post="/api/posts/like/{{ post.id }}" 
+				hx-on="htmx:onJson: this.setAttribute('class', event.json.didLike ? 'btn btn-sm btn-outline-primary' : 'btn btn-sm btn-outline-secondary')"
+				>
+
+				Likes <span hx-json="numLikes">{{ post.numLikes }}</span>
+			</button>
+		</div>
+	</div>
+
+	<div class="card-body">
+		<form id="new-reply-form" hx-post="/api/posts" hx-disabled-elt=".form-control, .btn" hx-on="htmx:afterOnLoad: this.reset()">
+			<input type="hidden" name="inReplyTo" value="{{ post.id }}">
+
+			<div class="mb-2">
+				<label class="form-label">Reply to post</label>
+				<textarea name="content" class="form-control" placeholder="Add to the conversation"></textarea>
+			</div>
+
+			<button type="submit" class="btn btn-sm btn-outline-primary">Submit Reply</button>
+		</form>
+	</div>
+</div>

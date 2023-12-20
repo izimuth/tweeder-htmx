@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link href="/public/login.css" rel="stylesheet" type="text/css">
+<script src="/public/login.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+
+	<div class="card mt-3">
+		<div class="card-header">Login</div>
+		<div class="card-body">
+			<form 
+				hx-post="/login/api/submit" 
+				hx-target="#login-result" 
+				hx-disabled-elt=".btn, .form-control"
+				hx-on="htmx:afterSwap: event.detail.target.classList.remove('d-none')"
+				hx-ext="errortoast">
+
+				<div id="login-result" class="alert alert-warning d-none"></div>
+
+				<div class="mb-3">
+					<label class="form-label">Email address or username</label>
+					<input type="text" class="form-control" name="username" autofocus>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Password</label>
+					<input type="password" class="form-control" name="password">
+				</div>
+
+				<button type="submit" class="btn btn-primary">Login</button>
+				<a href="/registration" type="button" class="btn btn-text">Create Account</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

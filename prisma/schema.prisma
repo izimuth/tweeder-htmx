@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider = "postgresql"
+	url      = env("DATABASE_URL")
+}
+
+model User {
+	id			Int 				@id @default(autoincrement())
+	displayName	String
+	username	String				@unique
+	email		String				@unique
+	password	String
+	isActive	Boolean 			@default(true)
+	authTokens	UserAuthToken[]
+	posts		Post[]
+
+	sourceOf	UserAssociation[]	@relation("source")
+	targetOf	UserAssociation[]	@relation("target")
+	likes		PostLike[]
+}
+
+model UserAuthToken {
+	id				Int			@id @default(autoincrement())
+	userId			Int
+	tokenValue		String
+	expiresAfter	DateTime
+	user			User		@relation(fields: [userId], references: [id])
+}
+
+model Post {
+	id				Int			@id @default(autoincrement())
+	userId			Int
+	replyToPostId	Int?
+	postedOn		DateTime
+	content			String
+	numLikes		Int			@default(0)
+	author			User		@relation(fields: [userId], references: [id])
+	likes			PostLike[]
+	replies			Post[]		@relation("replies")
+
+	inReplyTo		Post?		@relation(fields: [replyToPostId], references: [id], name: "replies")
+}
+
+model UserAssociation {
+	id				Int			@id @default(autoincrement())
+	type			String
+	sourceUserId	Int
+	targetUserId	Int
+
+	sourceUser		User		@relation(fields: [sourceUserId], references: [id], name: "source")
+	targetUser		User		@relation(fields: [targetUserId], references: [id], name: "target")
+}
+
+model PostLike {
+	id				Int			@id @default(autoincrement())
+	userId			Int
+	postId			Int
+	likedOn			DateTime
+	user			User		@relation(fields: [userId], references: [id])
+	post			Post		@relation(fields: [postId], references: [id])
+}
+

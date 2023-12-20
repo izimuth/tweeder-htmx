@@ -1,0 +1,17 @@
+
+.app-bar
+{
+	background-color: #212529;
+	border-bottom: 1px solid #495057;
+	left: 0;
+	padding: 8px 0;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+main
+{
+	position: relative;
+}

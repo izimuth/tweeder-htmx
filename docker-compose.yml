@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  tweeder_htmx_db:
+    image: postgres
+    container_name: tweeder_htmx_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: tweeder_dev_db
+      POSTGRES_PASSWORD: tweeder
+    volumes:
+      - tweeder_htmx_db:/var/lib/postgresql/data
+
+volumes:
+  tweeder_htmx_db:

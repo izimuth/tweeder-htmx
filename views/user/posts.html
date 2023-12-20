@@ -1,0 +1,10 @@
+
+{% if posts.length > 0 %}
+	{% include "shared/post-list.html" %}
+{% else %}
+	<div class="card">
+		<div class="card-body">
+			{{ user.displayName }} hasn't posted yet!
+		</div>
+	</div>
+{% endif %}

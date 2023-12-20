@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="container pt-4">
+	<div class="row">
+		<div class="col-3">
+			<div class="card" hx-boost="true">
+				<div class="card-header">Edit Profile</div>
+				<div class="list-group list-group-flush">
+					<a href="/home" class="list-group-item list-group-item-action d-flex">
+						<i class="bi bi-chevron-compact-left">Back to Home</i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-9">
+			<div class="card mb-4">
+				<div class="card-header">Profile Details</div>
+				<div class="card-body" x-data="{ show: false }">
+					<form id="profile-form" 
+						hx-post="/profile/api/save" 
+						hx-disabled-elt=".btn, .form-control" 
+						hx-target="find .alert" 
+						x-on:htmx:before-request.camel="show = false"
+						x-on:htmx:after-on-load.camel="show = event.detail.successful"
+						>
+
+						<div class="alert alert-success" style="display:none" x-show="show"></div>
+
+						<div class="mb-3">
+							<label class="form-label">Username</label>
+							<input type="text" class="form-control" name="username" value="{{ currentUser.username }}">
+						</div>
+		
+						<div class="mb-3">
+							<label class="form-label">Display Name</label>
+							<input type="text" class="form-control" name="displayName" value="{{ currentUser.displayName }}">
+						</div>
+		
+						<div class="mb-3">
+							<label class="form-label">Email Address</label>
+							<input type="text" class="form-control" name="email" value="{{ currentUser.email }}">
+						</div>
+
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header">Update Password</div>
+				<div class="card-body" x-data="{ show: false }">
+					<form id="profile-form" 
+						hx-post="/profile/api/savePassword" 
+						hx-disabled-elt=".btn, .form-control" 
+						hx-target="find .alert" 
+						hx-on="htmx:afterOnLoad: this.reset()"
+						x-on:htmx:before-request.camel="show = false"
+						x-on:htmx:after-on-load.camel="show = event.detail.successful"
+						>
+
+						<div class="alert alert-success" style="display:none" x-show="show"></div>
+
+						<div class="mb-3">
+							<label class="form-label">Current Password</label>
+							<input type="password" class="form-control" name="currentPassword">
+						</div>
+		
+						<div class="mb-3">
+							<label class="form-label">New Password</label>
+							<input type="password" class="form-control" name="newPassword">
+						</div>
+		
+						<div class="mb-3">
+							<label class="form-label">Confirm Password</label>
+							<input type="password" class="form-control" name="confirmPassword">
+						</div>
+
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

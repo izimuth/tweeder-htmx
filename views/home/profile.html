@@ -1,0 +1,18 @@
+
+<div class="card">
+	<div class="card-header">{{ currentUser.displayName }}</div>
+	<div class="list-group list-group-flush">
+		<a href="/{{ currentUser.username }}" class="list-group-item list-group-item-action d-flex justify-content-between"  hx-boost="true">
+			View Profile
+			<i class="bi bi-chevron-compact-right"></i>
+		</a>
+		<a href="/profile" class="list-group-item list-group-item-action d-flex justify-content-between"  hx-boost="true">
+			Edit Profile
+			<i class="bi bi-chevron-compact-right"></i>
+		</a>
+		<a href="/logout" class="list-group-item list-group-item-action d-flex justify-content-between">
+			Log Out
+			<i class="bi bi-box-arrow-right"></i>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+
+{% extends "layout.html" %}
+
+{% block head %}
+<link href="/public/app.css" rel="stylesheet" type="text/css">
+<script src="/public/app.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="container pt-4">
+	<div class="row">
+		<div class="col-3">
+			{{ profile | safe }}
+		</div>
+
+		<div class="col-9">
+			{{ posts | safe }}
+		</div>
+	</div>
+</div>
+{% endblock %}
