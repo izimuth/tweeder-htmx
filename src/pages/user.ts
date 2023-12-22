@@ -1,12 +1,10 @@
 import { Router } from "express";
 
 import nj from '@/core/templating';
-import createPage from "@/core/createPage";
 import getCurrentUser from "@/middleware/getCurrentUser";
 import { prisma } from "@/prisma";
 import { createAsyncMemo } from "@/core/memo";
 import { createView } from "@/core/createView";
-import { Post, Prisma } from "@prisma/client";
 
 export default (app: Router, basePath: string) => createView(app, {
 	basePath,
